@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\Place;
+use App\Models\Village;
+use App\Models\Category;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -46,6 +50,11 @@ Route::post('/register', function () {
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resource('home/places', PlaceController::class)->middleware('auth');
-
 Route::resource('master/villages', VillageController::class)->middleware('auth');
 Route::resource('master/categories', CategoryController::class)->middleware('auth');
+Route::get('home/overview', function (Request $request) {
+    $places = Place::where('deleted', false)->paginate(10);
+    $categories = Category::where('deleted', false)->get();
+    $villages = Village::where('deleted', false)->get();
+    return view('dashboard.overview', compact('places', 'categories', 'villages'));
+})->middleware('auth')->name('overview');

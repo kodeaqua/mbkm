@@ -6,20 +6,6 @@
                 <h3 class="text-center">Dashboard</h3>
                 <div class="card">
                     <ol class="list-group list-group-flush">
-                        <a href="{{ route('villages.index') }}"
-                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                class="bi bi-house" viewBox="0 0 16 16">
-                                <path
-                                    d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
-                            </svg>
-                            <div class="px-1"></div>
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">Villages</div>
-                                Manages whole villages
-                            </div>
-                        </a>
-
                         <a href="{{ route('places.index') }}"
                             class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -49,7 +35,20 @@
                                 Manages categories to match your research variables
                             </div>
                         </a>
-                        <a href="#"
+                        <a href="{{ route('villages.index') }}"
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                class="bi bi-house" viewBox="0 0 16 16">
+                                <path
+                                    d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+                            </svg>
+                            <div class="px-1"></div>
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">Villages</div>
+                                Manages whole villages
+                            </div>
+                        </a>
+                        <a href="{{ route('overview') }}"
                             class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                 class="bi bi-123" viewBox="0 0 16 16">
@@ -58,8 +57,8 @@
                             </svg>
                             <div class="px-1"></div>
                             <div class="ms-2 me-auto">
-                                <div class="fw-bold">Value and method</div>
-                                Set values for each variables here
+                                <div class="fw-bold">Overview</div>
+                                See the data processing using SAW
                             </div>
                         </a>
                         <a href="#"

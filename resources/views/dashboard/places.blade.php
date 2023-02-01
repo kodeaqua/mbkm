@@ -11,6 +11,8 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
 
+                <h3 class="text-center">All places</h3>
+
                 @if (session('success'))
                     <div class="alert alert-success border-0 text-center" role="alert">
                         {{ session('success') }}
@@ -23,8 +25,23 @@
                     </div>
                 @endif
 
-                <div class="d-flex flex-row justify-content-between align-items-baseline mx-2 my-2">
-                    <h3 class="text-center">All places</h3>
+                <div class="d-flex flex-row align-items-baseline">
+                    <div class="flex-grow-1 me-auto pe-3">
+                        <form action="{{ route('places.index') }}" method="GET">
+                            <div class="input-group">
+                                <input type="search" name="search" class="form-control" placeholder="Search by name"
+                                    @if (request('search')) value="{{ request('search') }}" @endif
+                                    aria-label="Search" aria-describedby="search">
+                                <button type="submit" class="btn btn-primary btn-primary-subtle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                        <path
+                                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                     <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseFormAdd" aria-expanded="false" aria-controls="collapseFormAdd">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -35,6 +52,18 @@
                         Add new
                     </button>
                 </div>
+
+                @if (request('search'))
+                    <div class="d-flex align-items-baseline flex-row">
+                        @if ($places->count() > 0)
+                            Showing {{ $places->count() }} results for '{{ request('search') }}'
+                        @else
+                            Not found matching data for query '{{ request('search') }}'
+                        @endif
+                        <a href="{{ route('places.index') }}" class="btn btn-sm btn-danger ms-2">Clear</a>
+                    </div>
+                    <div class="my-3"></div>
+                @endif
 
                 <div class="collapse" id="collapseFormAdd">
                     <div class="card p-3 d-flex flex-column">
@@ -134,42 +163,43 @@
                             </thead>
                             <tbody>
                                 @foreach ($places as $key => $value)
-                                    <tr>
+                                    <tr style="vertical-align: middle">
                                         <th scope="row">{{ $places->firstItem() + $key }}</th>
                                         <td>{{ $value->name }}</td>
                                         <td>{{ $value->category->name }}</td>
                                         <td>{{ $value->village->name }}</td>
-                                        <td class="d-flex flex-row justify-content-center align-items-baseline">
-                                            <div class="">
-                                                <button type="button" class="btn btn-sm btn-primary mx-1"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#editModal{{ $value->id }}">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
-                                                        <path
-                                                            d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-                                                    </svg>
-                                                    View
-                                                </button>
-                                            </div>
+                                        <td align="center">
 
-                                            <div class="">
-                                                <form action="{{ route('places.destroy', $value->id) }}" method="POST">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-sm btn-danger mx-1">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                            height="16" fill="currentColor" class="bi bi-trash3-fill"
-                                                            viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
-                                                        </svg>
-                                                        Delete
-                                                    </button>
-                                                </form>
-                                            </div>
+                                            <button type="button" class="btn btn-sm btn-primary mx-1"
+                                                data-bs-toggle="modal" data-bs-target="#editModal{{ $value->id }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                                                    <path
+                                                        d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                                                </svg>
+                                                View
+                                            </button>
+
+                                            <a href="{{ route('places.destroy', $value->id) }}"
+                                                class="btn btn-sm btn-danger mx-1"
+                                                onclick="event.preventDefault(); document.getElementById('delete-id-{{ $value->id }}').submit();">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                                                </svg>
+                                                Delete
+                                            </a>
+
+                                            <form id="delete-id-{{ $value->id }}"
+                                                action="{{ route('places.destroy', $value->id) }}" method="POST"
+                                                class="d-none">
+                                                @method('DELETE')
+                                                @csrf
+                                            </form>
+
                                         </td>
                                     </tr>
                                 @endforeach

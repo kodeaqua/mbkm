@@ -15,9 +15,11 @@ class PlaceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $places = Place::with('category', 'village')->where('deleted', false)->paginate(10);
+        $places = Place::where('deleted', false);
+        $request->has('search') ? $places = $places->where('name', 'LIKE', '%' . $request->search . '%') : false;
+        $places = $places->paginate(10);
         $categories = Category::where('deleted', false)->get();
         $villages = Village::where('deleted', false)->get();
         return view('dashboard.places', compact('places', 'categories', 'villages'));

@@ -13,9 +13,11 @@ class VillageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $villages = Village::where('deleted', false)->paginate(10);
+        $villages = Village::where('deleted', false);
+        $request->has('search') ? $villages = $villages->where('name', 'LIKE', '%' . $request->search . '%') : false;
+        $villages = $villages->paginate(10);
         return view('dashboard.villages', compact('villages'));
     }
 

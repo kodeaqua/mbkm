@@ -13,9 +13,11 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::where('deleted', false)->paginate(10);
+        $categories = Category::where('deleted', false);
+        $request->has('search') ? $categories = $categories->where('name', 'LIKE', '%' . $request->search . '%') : false;
+        $categories = $categories->paginate(10);
         return view('dashboard.categories', compact('categories'));
     }
 

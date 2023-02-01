@@ -33,68 +33,86 @@ class DatabaseSeeder extends Seeder
 
         Category::create([
             'name' => 'Ammusement Park',
+            'value' => 0.1
         ]);
 
         Category::create([
             'name' => 'Cafe',
+            'value' => 0.1
         ]);
 
         Category::create([
             'name' => 'Clothing',
+            'value' => 0.1
         ]);
 
         Category::create([
             'name' => 'Health',
+            'value' => 0.1
         ]);
 
         Category::create([
             'name' => 'Hotel',
+            'value' => 0.1
         ]);
 
         Category::create([
             'name' => 'Industry',
+            'value' => 0.1
         ]);
 
         Category::create([
             'name' => 'Law Enforcement',
+            'value' => 0.1
         ]);
 
         Category::create([
             'name' => 'Micro Economy',
+            'value' => 0.1
         ]);
 
         Category::create([
             'name' => 'Public Service',
+            'value' => 0.1
         ]);
 
         Category::create([
             'name' => 'Restaurant',
+            'value' => 0.1
         ]);
 
         Village::create([
             'name' => "Atang Sanjaya"
         ]);
+
         Village::create([
             'name' => "Bojong"
         ]);
+
         Village::create([
             'name' => "Jampang"
         ]);
+
         Village::create([
             'name' => "Kemang"
         ]);
+
         Village::create([
             'name' => "Pabuaran"
         ]);
+
         Village::create([
             'name' => "Parakan Jaya"
         ]);
+
         Village::create([
             'name' => "Pondok Udik"
         ]);
+
         Village::create([
             'name' => "Semplak Barat"
         ]);
+
         Village::create([
             'name' => "Tegal"
         ]);
