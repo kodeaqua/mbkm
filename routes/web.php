@@ -22,8 +22,14 @@ use App\Http\Controllers\CategoryController;
 |
 */
 
-Route::get('/', function () {
-    return view('landing');
+Route::get('/', function (Request $request) {
+    if ($request->has('search')) {
+        $places = Place::with('village', 'category')->where('name', 'LIKE', '%' . $request->search . '%');
+    } else {
+        $places = Place::with('village', 'category');
+    }
+   
+    return view('landing', compact('places'));
 })->name('landing');
 
 Route::get('/request', function () {
@@ -53,7 +59,7 @@ Route::resource('home/places', PlaceController::class)->middleware('auth');
 Route::resource('master/villages', VillageController::class)->middleware('auth');
 Route::resource('master/categories', CategoryController::class)->middleware('auth');
 Route::get('home/overview', function (Request $request) {
-    $places = Place::where('deleted', false)->paginate(10);
+    $places = Place::where('deleted', false)->paginate(200);
     $categories = Category::where('deleted', false)->get();
     $villages = Village::where('deleted', false)->get();
     return view('dashboard.overview', compact('places', 'categories', 'villages'));

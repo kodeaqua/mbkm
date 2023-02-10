@@ -25,7 +25,7 @@ return new class extends Migration
             $table->decimal('longitude', $precision = 8, $scale = 5)->nullable();
             $table->boolean('is_village_mascot')->default(0);
             $table->boolean('has_online_store')->default(0);
-            $table->boolean('has_smart_payment_support')->default(1);
+            $table->boolean('has_smart_payment_support')->default(0);
             $table->boolean('deleted')->default(false);
             $table->timestamps();
         });

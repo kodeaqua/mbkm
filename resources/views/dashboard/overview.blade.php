@@ -24,7 +24,7 @@
                                         <th scope="col">C {{ 1 + $key }}</th>
                                     @endforeach
                                     <th scope="col">Total</th>
-                                    <th scope="col">Results</th>
+                                   
                                 </tr>
                             </thead>
                             <tbody>
@@ -86,9 +86,7 @@
                                             {{ $places->where('village_id', $value->id)->count() }}
                                         </td>
 
-                                        <td>
-                                            Placeholder
-                                        </td>
+                                        
 
                                     </tr>
                                 @endforeach
